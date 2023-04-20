@@ -1,0 +1,22 @@
+{
+  "name": "abstract-generative-art",
+  "version": "1.0.0",
+  "description": "testing out cool generative art methods with vanilla js",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CharlieHodgkinson/abstract-generative-art.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CharlieHodgkinson/abstract-generative-art/issues"
+  },
+  "homepage": "https://github.com/CharlieHodgkinson/abstract-generative-art#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
