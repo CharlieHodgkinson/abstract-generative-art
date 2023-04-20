@@ -4,7 +4,8 @@
   "description": "testing out cool generative art methods with vanilla js",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server -f -w"
   },
   "repository": {
     "type": "git",

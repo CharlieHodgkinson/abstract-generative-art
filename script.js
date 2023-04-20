@@ -1,16 +1,16 @@
-let minYchange = 0; //these two ranges determine line overlap and width
-let maxYchange = 50;
-let layers = 5;
-let rotStripe = 0; //rotation of each stripe; try 10 or 90;
-// try lines = true with high alph or lines = false with low alph (100)
-let lines = true;
-let alph = 255; //out of 255
-let colRand = false; //true = random color; false = color from palette table
-let filling = true;
-let colorLines = false; //false for black lines
-let sw = 3; //line width
-let extraBlack = 0; //1 for some black line and white fills; 0 for neither; -2 for fewer colors;
-let extraBlackAlph = 255; //out of 255 - used if extraBlack=1 & lines, filling, colorLines all true, low alph, high sw
+const minYchange = -10; //these two ranges determine line overlap and width
+const maxYchange = 50;
+const layers = 1;
+const rotStripe = 0; //rotation of each stripe; try 10 or 90;
+// try lines = true with high alpha or lines = false with low alpha (100)
+const outlines = true;
+const alpha = 255; //out of 255
+const randomColors = false; //true = random color; false = color from palette table
+const filling = true;
+const outlineColoured = false; //false for black lines
+const outlineWidth = 1; //line width
+const numOfColors = 5; //5 in the pallet, add more for black or white
+const outlineAlpha = 255; //out of 255 - used if numOfColors=1 & lines, filling, colorLines all true, low alpha, high outlineWidth
 let r, g, b;
 let table;
 
@@ -18,12 +18,15 @@ function preload() {
   table = loadTable("colors.csv", "csv", "header");
 }
 
+console.log('in setup')
+
 function setup() {
+  
   let canv = createCanvas(windowWidth - 20, windowHeight - 20);
   canv.mousePressed(setup);
-  if (lines == true) {
-    stroke(0, 0, 0, extraBlackAlph);
-    strokeWeight(sw);
+  if (outlines == true) {
+    stroke(0, 0, 0, outlineAlpha);
+    strokeWeight(outlineWidth);
   } else {
     noStroke();
   }
@@ -61,23 +64,23 @@ function setup() {
       y4 += random(minYchange, maxYchange);
       y5 += random(minYchange, maxYchange);
       y6 += random(minYchange, maxYchange);
-      if (colRand == true) {
+      if (randomColors == true) {
         r = random(256);
         g = random(256);
         b = random(256);
       } else {
-        let col = floor(random(5 + extraBlack));
+        let col = floor(random(numOfColors));
         r = table.get(palette, col * 3);
         g = table.get(palette, col * 3 + 1);
         b = table.get(palette, col * 3 + 2);
       }
       if (filling == true) {
-        fill(r, g, b, alph);
+        fill(r, g, b, alpha);
       } else {
         noFill();
       }
-      if (colorLines == true) {
-        stroke(r, g, b, alph);
+      if (outlineColoured == true) {
+        stroke(r, g, b, alpha);
       }
       push();
       translate(width / 2, height / 2);

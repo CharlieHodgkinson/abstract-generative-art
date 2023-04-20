@@ -3,10 +3,10 @@ testing out cool generative art methods with vanilla js
 
 ## How to run it
 
-- make sure you have http-server installed globally
-`npm install -g http-server`
+- make sure you have browser-sync installed globally
+`npm install -g browser-sync`
 
 - run the server
-`http-server`
+`npm start`
 
-- go to the port outputted and click to generate art! :D
+- go to http://localhost:3000 and click to generate art! :D
