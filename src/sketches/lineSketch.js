@@ -18,9 +18,9 @@ let r, g, b;
 let table;
 
 export const preload = (p5, parentRef) => {
-  let canv = p5.createCanvas(900, 200).parent(parentRef);
-  // canv.mousePressed((e) => {
-  //   setup();
+  const canv = p5.createCanvas(200, 200).parent(parentRef);
+  // canv.mousePressed((event) => {
+  //   console.log("Clicked on the canvas. Event:", event);
   // });
   // console.log("preload");
   // table = p5.loadTable("colors.csv", "csv", "header", () => {
@@ -29,6 +29,9 @@ export const preload = (p5, parentRef) => {
 };
 
 export const setup = (p5, parentRef) => {
+  const canv = p5
+    .createCanvas(p5.windowWidth, p5.windowHeight)
+    .parent(parentRef);
   console.log("hello");
   if (outlines === true) {
     p5.stroke(0, 0, 0, outlineAlpha);
