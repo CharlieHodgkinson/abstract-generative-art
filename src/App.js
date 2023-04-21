@@ -58,11 +58,14 @@ const App = () => {
             <h1
               style={{
                 fontSize: 56,
-                marginTop: "0",
+                margin: "0",
+                textAlign: 'center'
               }}
             >
               Generate Your Art
             </h1>
+            <p style={{fontSize: '20px'}}>Click your art to regenerate</p>
+
             <p style={{ margin: "0" }}>Number of layers</p>
             <Slider
               min={1}
@@ -118,6 +121,20 @@ const App = () => {
                 defaultChecked
                 onChange={(event) => {
                   updateValues({ new_filling: event.target.checked });
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <p style={{ margin: "0" }}>Random colors</p>
+              <Switch
+                onChange={(event) => {
+                  updateValues({ new_randomColors: event.target.checked });
                 }}
               />
             </div>

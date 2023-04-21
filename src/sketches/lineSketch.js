@@ -1,3 +1,5 @@
+import {colorPalettes} from './colors';
+
 let minYchange = -10; //these two ranges determine line overlap and width
 let maxYchange = 50;
 let layers = 1;
@@ -15,6 +17,14 @@ let outlineAlpha = 255; //out of 255 - used if numOfColors=1 & lines, filling, c
 let r, g, b;
 let table;
 let loadedTable = null;
+
+// const colourPalettes = [
+//   [254,67,101,252,157,154,249,205,173,200,200,169,131,175,155],
+//   [236,208,120,217,91,67,192,41,66,84,36,55,83,119,122],
+//   [85,98,112,78,205,196,199,244,100,255,107,107,196,77,88],
+//   [119,79,56,224,142,121,241,212,175,236,229,206,197,224,220],
+//   [232,221,203,205,179,128,3,101,100,3,54,73,3,22,52],
+// ]
 
 export const updateValues = ({
   new_minYchange = minYchange, //do later
@@ -81,7 +91,6 @@ export const drawLineArt = (p5) => {
   }
   p5.angleMode(p5.DEGREES);
   let end = p5.height / 2 + 500; //where lines stop
-  let palette = p5.floor(p5.random(676));
   for (let i = 0; i < layers; i++) {
     let y1;
     if (i === 0) {
@@ -91,13 +100,14 @@ export const drawLineArt = (p5) => {
     }
     //starting height for each layer
     let y2 = y1,
-      y3 = y1,
-      y4 = y1,
-      y5 = y1,
-      y6 = y1;
+    y3 = y1,
+    y4 = y1,
+    y5 = y1,
+    y6 = y1;
     let rotLayer = p5.random(359); //layer rotation
     let rotThisStripe = 0;
     //keep going until all the lines are at the bottom
+    let palette = p5.floor(p5.random(colorPalettes.length+1));
     while (
       (y1 < end) &
       (y2 < end) &
@@ -106,24 +116,24 @@ export const drawLineArt = (p5) => {
       (y5 < end) &
       (y6 < end) &
       (-maxYchange < minYchange)
-    ) {
-      y1 += p5.random(minYchange, maxYchange);
-      y2 += p5.random(minYchange, maxYchange);
-      y3 += p5.random(minYchange, maxYchange);
-      y4 += p5.random(minYchange, maxYchange);
-      y5 += p5.random(minYchange, maxYchange);
-      y6 += p5.random(minYchange, maxYchange);
-      // if (randomColors === true) {
-      r = p5.random(256);
-      g = p5.random(256);
-      b = p5.random(256);
-      // } else {
-      // let col = p5.floor(p5.random(numOfColors));
-      // console.log("TABLE DATA", table.get(palette, col * 3))
-      //   r = table.get(palette, col * 3);
-      //   g = table.get(palette, col * 3 + 1);
-      //   b = table.get(palette, col * 3 + 2);
-      // }
+      ) {
+        y1 += p5.random(minYchange, maxYchange);
+        y2 += p5.random(minYchange, maxYchange);
+        y3 += p5.random(minYchange, maxYchange);
+        y4 += p5.random(minYchange, maxYchange);
+        y5 += p5.random(minYchange, maxYchange);
+        y6 += p5.random(minYchange, maxYchange);
+        if (randomColors === true) {
+          r = p5.random(256);
+          g = p5.random(256);
+          b = p5.random(256);
+        } else {
+          let col = p5.floor(p5.random(numOfColors));
+          // console.log("TABLE DATA", table.get(palette, col * 3))
+            r = colorPalettes[palette][col];
+            g = colorPalettes[palette][col+1] //table.get(palette, col * 3 + 1);
+            b = colorPalettes[palette][col+2] //table.get(palette, col * 3 + 2);
+          }
       if (filling === true) {
         p5.fill(r, g, b, alpha);
       } else {
