@@ -12,14 +12,13 @@ let outlineWidth = 1; //line width
 let numOfColors = 5; //5 in the pallet, add more for black or white
 let outlineAlpha = 255; //out of 255 - used if numOfColors=1 & lines, filling, colorLines all true, low alpha, high outlineWidth
 
-
 let r, g, b;
 let table;
 let loadedTable = null;
 
 export const updateValues = ({
-  new_minYchange = minYchange,
-  new_maxYchange = maxYchange,
+  new_minYchange = minYchange, //do later
+  new_maxYchange = maxYchange, // do later
   new_layers = layers,
   new_rotStripe = rotStripe,
   new_outlines = outlines,
@@ -59,7 +58,7 @@ export const preload = (p5, parentRef) => {
 
 export const setup = (p5, parentRef) => {
   const canv = p5
-    .createCanvas(p5.windowHeight*0.7, p5.windowHeight*0.7)
+    .createCanvas(p5.windowHeight *0.8, p5.windowHeight *0.8)
     .parent(parentRef);
 
   canv.mousePressed((event) => {
@@ -73,6 +72,7 @@ export const setup = (p5, parentRef) => {
 };
 
 export const drawLineArt = (p5) => {
+  p5.clear();
   if (outlines === true) {
     p5.stroke(0, 0, 0, outlineAlpha);
     p5.strokeWeight(outlineWidth);
