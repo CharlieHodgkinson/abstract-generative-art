@@ -1,38 +1,78 @@
-let y = 0;
-let direction = "^";
-
-const minYchange = -10; //these two ranges determine line overlap and width
-const maxYchange = 50;
-const layers = 1;
-const rotStripe = 0; //rotation of each stripe; try 10 or 90;
+let minYchange = -10; //these two ranges determine line overlap and width
+let maxYchange = 50;
+let layers = 1;
+let rotStripe = 0; //rotation of each stripe; try 10 or 90;
 // try lines = true with high alpha or lines = false with low alpha (100)
-const outlines = true;
-const alpha = 255; //out of 255
-const randomColors = false; //true = random color; false = color from palette table
-const filling = true;
-const outlineColoured = false; //false for black lines
-const outlineWidth = 1; //line width
-const numOfColors = 5; //5 in the pallet, add more for black or white
-const outlineAlpha = 255; //out of 255 - used if numOfColors=1 & lines, filling, colorLines all true, low alpha, high outlineWidth
+let outlines = true;
+let alpha = 255; //out of 255
+let randomColors = false; //true = random color; false = color from palette table
+let filling = true;
+let outlineColoured = false; //false for black lines
+let outlineWidth = 1; //line width
+let numOfColors = 5; //5 in the pallet, add more for black or white
+let outlineAlpha = 255; //out of 255 - used if numOfColors=1 & lines, filling, colorLines all true, low alpha, high outlineWidth
+
+
 let r, g, b;
 let table;
+let loadedTable = null;
+
+export const updateValues = ({
+  new_minYchange = minYchange,
+  new_maxYchange = maxYchange,
+  new_layers = layers,
+  new_rotStripe = rotStripe,
+  new_outlines = outlines,
+  new_alpha = alpha,
+  new_randomColors = randomColors,
+  new_filling = filling,
+  new_outlineColoured = outlineColoured,
+  new_outlineWidth = outlineWidth,
+  new_numOfColors = numOfColors,
+  new_outlineAlpha = outlineAlpha,
+}) => {
+  minYchange = new_minYchange;
+  maxYchange = new_maxYchange;
+  layers = new_layers;
+  rotStripe = new_rotStripe;
+  // try lines = true with high alpha or lines = false with low alpha (100)
+  outlines = new_outlines;
+  alpha = new_alpha;
+  randomColors = new_randomColors;
+  filling = new_filling;
+  outlineColoured = new_outlineColoured;
+  outlineWidth = new_outlineWidth;
+  numOfColors = new_numOfColors;
+  outlineAlpha = new_outlineAlpha;
+};
 
 export const preload = (p5, parentRef) => {
-  const canv = p5.createCanvas(200, 200).parent(parentRef);
-  // canv.mousePressed((event) => {
-  //   console.log("Clicked on the canvas. Event:", event);
+  // table = p5.loadTable("./colors.csv", "csv", "header", (newTable) => {console.log('table AAAAAAAAAAAA', newTable)}, (error) => {console.log('error', error)})
+  // table = p5.loadTable('colors.csv', 'header');
+  // p5.loadTable("colors.csv", "csv", "header", (loadedTable) => {
+  //   console.log("loadedTable", loadedTable);
+  //   table = loadedTable;
   // });
-  // console.log("preload");
-  // table = p5.loadTable("colors.csv", "csv", "header", () => {
-  //   console.log("table", table);
-  // });
+  // // table = p5.loadTable("http://p5js.org/reference/assets/mammals.csv", "csv", "header");
+  // console.log(table.getRowCount() + " total rows in table")
 };
 
 export const setup = (p5, parentRef) => {
   const canv = p5
-    .createCanvas(p5.windowWidth, p5.windowHeight)
+    .createCanvas(p5.windowHeight*0.8, p5.windowHeight*0.8)
     .parent(parentRef);
-  console.log("hello");
+
+  canv.mousePressed((event) => {
+    drawLineArt(p5);
+  });
+  drawLineArt(p5);
+
+  if (document.getElementById("defaultCanvas1")) {
+    document.getElementById("defaultCanvas1").remove();
+  }
+};
+
+export const drawLineArt = (p5) => {
   if (outlines === true) {
     p5.stroke(0, 0, 0, outlineAlpha);
     p5.strokeWeight(outlineWidth);
@@ -78,7 +118,8 @@ export const setup = (p5, parentRef) => {
       g = p5.random(256);
       b = p5.random(256);
       // } else {
-      //   let col = p5.floor(p5.random(numOfColors));
+      // let col = p5.floor(p5.random(numOfColors));
+      // console.log("TABLE DATA", table.get(palette, col * 3))
       //   r = table.get(palette, col * 3);
       //   g = table.get(palette, col * 3 + 1);
       //   b = table.get(palette, col * 3 + 2);
@@ -107,9 +148,6 @@ export const setup = (p5, parentRef) => {
       p5.curveVertex(p5.width / 2 + 300, p5.height / 2 + 500);
       p5.endShape(p5.CLOSE);
       p5.pop();
-      if (document.getElementById("defaultCanvas1")) {
-        document.getElementById("defaultCanvas1").remove();
-      }
     }
   }
 };
