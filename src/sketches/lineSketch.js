@@ -59,7 +59,7 @@ export const preload = (p5, parentRef) => {
 
 export const setup = (p5, parentRef) => {
   const canv = p5
-    .createCanvas(p5.windowHeight*0.8, p5.windowHeight*0.8)
+    .createCanvas(p5.windowHeight*0.7, p5.windowHeight*0.7)
     .parent(parentRef);
 
   canv.mousePressed((event) => {

@@ -17,26 +17,36 @@ const App = () => {
       backgroundColor: '#e9ecef'
       }} >
       <div style={{
-        width: '20%',
-        backgroundColor: '#fff',
-        padding: '40px 60px',
-      }}>
-        {/* <div>hiiiiiiii</div> */}
-      {/* <Card> */}
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
-      {/* </Card> */}
+          width: '20%',
+          display: 'flex',
+          height: window.innerHeight*0.7,
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
+        <h1 style={{fontSize: 80}}>Generate Your Art</h1>
+        <div style={{
+          backgroundColor: '#fff',
+          padding: '40px 60px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          height: '100%',
+        }}>
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+          <Slider />
+        </div>
       </div>
-      <div>
-        {/* <div>HELOOOOOO</div> */}
-      <Sketch setup={setup} preload={preload} />
+      <div style={{border: '8px solid'}}>
+        <Sketch setup={setup} preload={preload} style={{ 
+          height: window.innerHeight*0.7,
+        }} />
       </div>
     </div>
   );
