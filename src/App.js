@@ -1,8 +1,12 @@
 // import sketch from "./sketches/sketch";
-import React from "react";
+import React, { useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Sketch from "react-p5";
-import { setup, preload, updateValues } from "./sketches/lineSketch";
+import { setup, updateValues } from "./sketches/lineSketch";
+import {
+  setup as newSetup,
+  updateValues as newUpdateValues,
+} from "./sketches/movingLines";
 import { Slider, Switch } from "@mui/material";
 
 const App = () => {
@@ -14,12 +18,26 @@ const App = () => {
     },
   });
   const [value, setValue] = React.useState([-10, 50]);
+  const [animated, setAnimated] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     console.log(event);
     updateValues({ new_minYChange: newValue[0], new_maxYchange: newValue[1] });
     setValue(newValue);
   };
+
+  const animate = (value) => {
+    // do whatever you like here
+    const newValue = value < 100 ? value++ : 0;
+    newUpdateValues({ new_rotStripe: newValue });
+
+    if (animated) setTimeout(animate, 5000, newValue);
+  };
+
+  useEffect(() => {
+    if (animated) animate(1);
+  }, [animated]);
+
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -59,12 +77,27 @@ const App = () => {
               style={{
                 fontSize: 56,
                 margin: "0",
-                textAlign: 'center'
+                textAlign: "center",
               }}
             >
               Generate Your Art
             </h1>
-            <p style={{fontSize: '20px'}}>Click your art to regenerate</p>
+            <p style={{ fontSize: "20px" }}>Click your art to regenerate</p>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <p style={{ margin: "0" }}>Animated</p>
+              <Switch
+                onChange={(event) => {
+                  setAnimated(event.target.checked);
+                }}
+              />
+            </div>
 
             <p style={{ margin: "0" }}>Number of layers</p>
             <Slider
@@ -190,8 +223,7 @@ const App = () => {
           }}
         >
           <Sketch
-            setup={setup}
-            preload={preload}
+            setup={animated ? newSetup : setup}
             style={{
               height: window.innerHeight * 0.8,
             }}
